@@ -31,6 +31,10 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: ./bin/Release/net8.0/AsyncQueueSharp.dll # Path to the built DLL files
+        draft: false
+        prerelease: false
+        tag_name: "Release"
+        name: "Release Build"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
