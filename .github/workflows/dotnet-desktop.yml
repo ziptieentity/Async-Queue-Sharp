@@ -30,12 +30,10 @@ jobs:
     - name: Create and upload release
       uses: actions/create-release@v1
       with:
-        files: |
-          ./AsyncQueue/bin/Release/net8.0/AsyncQueueSharp.dll
         draft: false
         prerelease: false
         tag_name: "Release"
-        name: "Release Build"
+        release_name: 'Release Build'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
