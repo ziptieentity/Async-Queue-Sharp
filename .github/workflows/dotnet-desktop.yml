@@ -3,19 +3,8 @@ name: Build and Release .NET Class Library
 on:
   workflow_dispatch:
     inputs:
-      name:
-        type: choice
-        description: Who to greet
-        options: 
-        - monalisa
-        - cschleiden
-      message:
+      Version:
         required: true
-      use-emoji:
-        type: boolean
-        description: Include 🎉🤣 emojis
-      environment:
-        type: environment
 
 jobs:
   build:
@@ -45,7 +34,7 @@ jobs:
       with:
         draft: false
         prerelease: false
-        tag_name: "Release"
+        tag_name: ${{ "v" + github.event.inputs.Version }}
         release_name: 'Release Build'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
