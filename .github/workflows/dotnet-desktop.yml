@@ -34,7 +34,7 @@ jobs:
       with:
         draft: false
         prerelease: false
-        tag_name: ${{ "v" + github.event.inputs.Version }}
+        tag_name: ${{ github.event.inputs.Version }}
         release_name: 'Release Build'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
