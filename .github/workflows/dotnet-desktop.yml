@@ -30,7 +30,7 @@ jobs:
     - name: Create and upload release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./bin/Release/net8.0/AsyncQueueSharp.dll # Path to the built DLL files
+        files: Release/net8.0/AsyncQueueSharp.dll # Path to the built DLL files
         draft: false
         prerelease: false
         tag_name: "Release"
