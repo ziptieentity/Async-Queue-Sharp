@@ -48,3 +48,4 @@ jobs:
         asset_path: |
           ./AsyncQueue/bin/Release/net8.0/AsyncQueueSharp.dll
         asset_name: AsyncQueueSharp.dll
+        asset_content_type: application/octet-stream
