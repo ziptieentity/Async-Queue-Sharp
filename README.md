@@ -1,7 +1,7 @@
 # ⏳Async Queue Sharp
 Async Queue Sharp is a lightweight C# library for queueing asynchronous tasks.
 
-<a href="https://www.nuget.org/packages/AsyncQueueSharp/1.0.0">
+<a href="https://www.nuget.org/packages/AsyncQueueSharp/1.0.1">
     <img alt="NuGet Version" src="https://img.shields.io/nuget/v/AsyncQueueSharp">
 </a>
 
