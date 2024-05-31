@@ -1,4 +1,4 @@
-name: Build and Release .NET Class Library
+name: Build and Release
 
 on:
   workflow_dispatch:
