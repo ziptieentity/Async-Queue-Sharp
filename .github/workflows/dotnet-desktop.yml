@@ -25,7 +25,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: List build directory contents for debugging
-      run: ls -R ./bin
+      run: ls -R
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
