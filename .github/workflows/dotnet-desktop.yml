@@ -35,7 +35,7 @@ jobs:
         draft: false
         prerelease: false
         tag_name: ${{ github.event.inputs.Version }}
-        release_name: 'Release Build'
+        release_name: 'Release — v${{ needs.bootstrap.outputs.version }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
