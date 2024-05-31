@@ -1,4 +1,4 @@
-name: Build .NET Class Library
+name: Build and Release .NET Class Library
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.x'
+        dotnet-version: '8.x' # Specify the version of .NET SDK you want to use
 
     - name: Restore dependencies
       run: dotnet restore
@@ -26,3 +26,24 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Create release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: 'Release' # You can update the version or use a dynamic versioning strategy
+        release_name: 'Release'
+        draft: false
+        prerelease: false
+
+    - name: Upload DLL to release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./bin/Release/net8.0/publish/AsyncQueueSharp.dll # Path to the built DLL file
+        asset_name: AsyncQueueSharp.dll
+        asset_content_type: application/octet-stream
