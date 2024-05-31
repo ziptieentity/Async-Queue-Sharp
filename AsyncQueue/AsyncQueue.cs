@@ -28,7 +28,7 @@ public class AsyncQueue
     /// <param name="input">The input data.</param>
     /// <param name="onProcessStart">Called when the queue item starts processing. Returns an output.</param>
     /// <param name="onProcessComplete">Called when the queue item has completed processing and has an output.</param>
-    public void Enqueue<Input, Output>(Input input, Func<Input, Task<Output>> onProcessStart, Action<Output?>? onProcessComplete = null) where Input : notnull
+    public void Enqueue<Input>(Input input, Func<Input, Task> onProcess) where Input : notnull
     {
         _ = Task.Factory.StartNew(async () =>
         {
@@ -37,7 +37,7 @@ public class AsyncQueue
             {
                 if (_maxQueueItems > 0 && ItemsLeftToProcess >= _maxQueueItems)
                     return;
-                _responseQueue.Enqueue(new QueueItem<Input, Output>(input, onProcessStart, onProcessComplete));
+                _responseQueue.Enqueue(new QueueItem<Input>(input, onProcess));
                 if (!_isProcessing)
                 {
                     _isProcessing = true;
@@ -92,55 +92,35 @@ public class AsyncQueue
     }
     private async Task ProcessResponse(IQueueItem item)
     {
-        var output = await item.ProcessStart();
-        item.ProcessComplete(output);
+        await item.ProcessStart();
     }
     #endregion
 
     #region Nested Classes
     public interface IQueueItem
     {
-        public void ProcessComplete(object? data);
-        public Task<object?> ProcessStart();
+        public Task ProcessStart();
     }
-    public class QueueItem<Input, Output> : IQueueItem where Input : notnull
+    public class QueueItem<Input> : IQueueItem where Input : notnull
     {
         /// <summary>
         /// The data of the queue item.
         /// </summary>
         public Input Data;
         /// <summary>
-        /// Called when processing has completed on the queue item.
-        /// </summary>
-        public Action<Output?>? OnProcessComplete;
-        /// <summary>
         /// Called when processing has started on the queue item.
         /// </summary>
-        public Func<Input, Task<Output>> OnProcessStart;
+        public Func<Input, Task> OnProcessStart;
 
         /// <param name="data">The data of the queue item.</param>
         /// <param name="onProcessComplete">Called when processing has completed on the queue item.</param>
         /// <param name="onProcessStart">Called when processing has started on the queue item.</param>
-        public QueueItem(Input data, Func<Input, Task<Output>> onProcessStart, Action<Output?>? onProcessComplete = null)
+        public QueueItem(Input data, Func<Input, Task> onProcessStart)
         {
             Data = data;
-            OnProcessComplete = onProcessComplete;
             OnProcessStart = onProcessStart;
         }
-
-        public void ProcessComplete(object? data) 
-        {
-            if (OnProcessComplete == null)
-                return;
-            if (data == null)
-                OnProcessComplete(default);
-            if (data is Output)
-                OnProcessComplete((Output)data);
-        }
-        public async Task<object?> ProcessStart()
-        {
-            return await OnProcessStart(Data);
-        }
+        public async Task ProcessStart() => await OnProcessStart(Data);
     }
     #endregion
 
