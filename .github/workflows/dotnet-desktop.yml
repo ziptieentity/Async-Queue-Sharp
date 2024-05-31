@@ -27,6 +27,13 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
+    - name: Upload the artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-develop-windows
+        path: |
+          ./bin/Release/net8.0/AsyncQueueSharp.dll
+
     - name: Create and upload release
       uses: softprops/action-gh-release@v1
       with:
@@ -45,4 +52,4 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: |
-          ./AsyncQueue/bin/Release/net8.0/AsyncQueueSharp.dll
+          ./bin/Release/net8.0/AsyncQueueSharp.dll
