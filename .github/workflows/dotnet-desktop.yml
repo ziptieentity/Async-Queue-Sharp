@@ -27,16 +27,12 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: Create and upload release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ./bin/Release/net8.0/AsyncQueueSharp.dll # Path to the built DLL files
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: 'Release'
-        release_name: 'Release'
-        draft: false
-        prerelease: false
 
     - name: Upload DLL to release
       uses: actions/upload-release-asset@v1
