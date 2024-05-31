@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>ziptie.entity</Authors>
+    <Description>A lightweight C# library for queueing asynchronous tasks.</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/ziptieentity/Async-Queue-Sharp</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/ziptieentity/Async-Queue-Sharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>queue;async;tasks</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Downloads\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
