@@ -30,7 +30,8 @@ jobs:
     - name: Create and upload release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./bin/Release/net8.0/AsyncQueueSharp.dll
+        files: |
+          ./AsyncQueue/bin/Release/net8.0/AsyncQueueSharp.dll
         draft: false
         prerelease: false
         tag_name: "Release"
@@ -45,4 +46,4 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: |
-          ./bin/Release/net8.0/AsyncQueueSharp.dll
+          ./AsyncQueue/bin/Release/net8.0/AsyncQueueSharp.dll
