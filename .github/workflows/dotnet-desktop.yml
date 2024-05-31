@@ -47,3 +47,4 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: |
           ./AsyncQueue/bin/Release/net8.0/AsyncQueueSharp.dll
+        asset_name: AsyncQueueSharp.dll
